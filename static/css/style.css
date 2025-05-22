@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+   --fundo: #DFDFDF;
+   --cabeçalho: #34495E;
+   --fundo-destaques: #A8E6CF;
+   --branco:#ffff;
+   --botões: #27AE60;
+   --fundo-registro-transação: #4FC18A;
+   --fundo-formularios: #2C3E50;
+   --preto: #0000;
+}
