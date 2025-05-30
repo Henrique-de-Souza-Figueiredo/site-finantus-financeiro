@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Transação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{ url_for('static', filename='img/Logo Finantus.png') }" type="logo">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="{{ url_for('index') }}">
+                <img width="150" src="{{ url_for('static', filename='img/Logo Finantus.png') }}" class="logo"
+                    alt="Logo">
+            </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <a href="{{ url_for('registro_transacoes') }}">
+        <button class="botão" type="button"> Voltar</button>
+    </a>
+    <h1 class="titulo">Editar Transação</h1>
+    <main>
+        <section class="centralização">
+            <form action="{{ url_for('atualizar_transacao') }}" method="POST">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="{{ transacao['Nome'] }}" required>
+
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" value="{{ transacao['data'] }}" required>
+
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="Receita" {% if transacao['tipo']=='Receita' %}selected{% endif %}>Receita</option>
+                    <option value="Despesa" {% if transacao['tipo']=='Despesa' %}selected{% endif %}>Despesa</option>
+                </select>
+
+                <label for="valor">Valor:</label>
+                <input type="number" step="0.01" id="valor" name="valor" value="{{ transacao['valor'] }}" required>
+
+
+                <input type="hidden" name="nome_original" value="{{ transacao['Nome'] }}">
+                <input type="hidden" name="valor_original" value="{{ transacao['valor'] }}">
+                <input type="hidden" name="data_original" value="{{ transacao['data'] }}">
+                <input type="hidden" name="tipo_original" value="{{ transacao['tipo'] }}">
+
+                <button class="botão-final" type="submit">Salvar Alterações</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="rodape">
+            <div class="contatos">
+                <div><img src="{{ url_for('static', filename='img/icon-whatsapp.png') }}" alt=""><span>(55) 18
+                        12345-6789</span></div>
+                <div><img src="{{ url_for('static', filename='img/instagram-icon.png') }}"
+                        alt=""><span>@FinantusFinanceiros</span></div>
+                <div><img src="{{ url_for('static', filename='img/icon-gmail.png') }}"
+                        alt=""><span>FinantusFinanceiros@gmail.com</span></div>
+            </div>
+            <nav class="menu-rodape">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="">Reserva de Emergencia</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+        <p class="direitos">© Todos os direitos reservados - 2025</p>
+    </footer>
+</body>
+
+</html>
