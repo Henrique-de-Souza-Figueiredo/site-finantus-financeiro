@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Finantus</title>
+    <meta charset="UTF-8">
+    <title>Editar Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <link rel="shortcut icon" href="static/img/Logo Finantus.png" type="image/x-icon">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="index.html"> <img width="150" src="{{url_for ('static', filename='img/Logo Finantus.png')}}"
+                    class="logo" alt="Logo"> </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <div>
+
+        <a href="{{ url_for('index') }}">
+            <button class="botão" type="button"> Voltar</button>
+        </a>
+
+        <h1 class="titulo">Editar Cadastro</h1>
+    </div>
+
+
+
+    <section class="centralização">
+        <form action="{{ url_for('editar_cadastro', cpf=cpf) }}" method="POST">
+
+            <input type="hidden" name="cpf" value="{{ cpf }}">
+
+            <label>Nome:</label>
+            <input type="text" name="Nome" value="{{ usuario['Nome'] }}" required>
+
+            <label>CPF:</label>
+            <input type="text" name="CPF" value="{{ cpf }}" readonly>
+
+            <label>Telefone:</label>
+            <input type="tel" name="Telefone" value="{{ usuario['Telefone'] }}" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ usuario['email'] }}" required>
+
+            <label>Senha:</label>
+            <input type="password" name="senha" value="{{ usuario['senha'] }}" required>
+
+            <button class="botão-final" type="submit">Salvar Alterações</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="rodape">
+            <div class="contatos">
+                <div>
+                    <img src="{{url_for ('static', filename='img/icon-whatsApp.png')}}"
+                        alt="icon do icon-whatsApp"><span>(55) 18 12345-6789</span>
+                </div>
+
+                <div>
+                    <img src="{{url_for ('static', filename='img/instagram-icon.png')}}"
+                        alt="logo do instagram"><span>@FinantusFinanceiros</span>
+                </div>
+
+                <div>
+                    <img src="{{url_for ('static', filename='img/icon-gmail.png')}}"
+                        alt="logo do email"><span>FinantusFinanceiros@gmail.com</span>
+                </div>
+            </div>
+
+            <nav class="menu-rodape">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                    <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                    <a href="">Reserva de Emergencia</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+        <p class="direitos">© Todos os direitos reservados - 2025</p>
+    </footer>
+</body>
+
+</html>
