@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <title>Finantus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="static/img/Logo Finantus.png" type="image/x-icon">
+    <link rel="stylesheet" href="static/css/estilo.css">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="{{url_for('index')}}"> <img width="150" src="static/img/Logo Finantus.png" class="logo" alt="Logo"> </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+            {% if session.get('usuario_nome') %}
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="banner">
+            <img src="static/img/banner.jpg" alt="banner do site ">
+        </section>
+
+        <section class="bancos">
+            <p class="texto-bancos">
+                Controle financeiro conectado com os principais bancos</p>
+            <img src="static/img/bancos.png" alt="" class="img-banco">
+        </section>
+
+        <section class="funcionamento">
+            <h2>Como Funciona o Plano Financeiro</h2>
+            <div class="cartoes">
+                <div class="cartao">
+                    <img width="150" src="static/img/Análise.png" alt="">
+                    <h3>Análise da Situação Atual</h3>
+                    <p>Entenda sua Situação</p>
+            
+                        <p>Quanto você ganha e quanto gasta por mês?</p>
+                        <p>Tem dívidas, reserva ou investimentos?</p>
+                </div>
+                <div class="cartao">
+                    <img width="150" src="static/img/icone 2.png" alt="">
+                    <h3>Definições de objetivos</h3>
+                    <p>Você traça metas claras e realistas:</p>
+                   
+                        <p>Quitar dívidas</p>
+                        <p>Montar uma reserva de emergência</p>
+                        <p>Comprar um carro, casa ou fazer uma viagem</p>
+                        <p>Aposentadoria tranquila</p>
+                    
+                </div>
+                <div class="cartao">
+                    <img width="150" src="static/img/icone 3.png" alt="">
+                    <h3>Monte seu Orçamento</h3>
+                    <p>Divida sua renda mensal:</p>
+                   
+                        <p>Essencial (até 50%): contas fixas, comida, aluguel</p>
+                        <p>Desejos (até 30%): lazer, presentes, delivery</p>
+                        <p>Futuro (20% ou mais): investimentos, reserva, quitar dívida</p>
+                    
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="rodape">
+                <div class="contatos">
+                    <div><img src="static/img/icon-whatsapp.png" alt=""><span>(55) 18 12345-6789</span></div>
+                    <div><img src="static/img/instagram-icon.png" alt=""><span>@FinantusFinanceiros</span></div>
+                    <div><img src="static/img/icon-gmail.png" alt=""><span>FinantusFinanceiros@gmail.com</span></div>
+                </div>
+                <nav class="menu-rodape">
+                    <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                    <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                    <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+                </nav>
+            </div>
+            <p class="direitos">© Todos os direitos reservados - 2025</p>
+        </footer>
+
+    </main>
+</body>
+</html>
