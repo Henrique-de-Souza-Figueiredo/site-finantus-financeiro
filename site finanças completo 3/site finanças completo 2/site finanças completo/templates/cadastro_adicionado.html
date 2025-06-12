@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Concluído</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo Finantus.png') }}" type="logo">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <img width="120" src="{{ url_for('static', filename='img/Logo Finantus.png') }}" class="logo"
+                alt="Logo Finantus">
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversão de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+
+            </nav>
+        </div>
+    </header>
+    <main class="centralização">
+        <h1 class="titulo">Cadastro concluído!</h1>
+        <p class="titulo">Bem-vindo, {{ usuario.Nome }}</p>
+        <a class="botão" href="{{ url_for('editar_cadastro', cpf=usuario['CPF']) }}">Editar Cadastro</a>
+        <a class="botão" href="{{ url_for('index') }}">Voltar ao Inicio</a>
+    </main>
+    <footer>
+        <div class="rodape">
+            <div class="contatos">
+                <div><img src="{{ url_for('static', filename='img/icon-whatsapp.png') }}" alt="WhatsApp"><span>(55) 18
+                        12345-6789</span></div>
+                <div><img src="{{ url_for('static', filename='img/instagram-icon.png') }}"
+                        alt="Instagram"><span>@FinantusFinanceiros</span></div>
+                <div><img src="{{ url_for('static', filename='img/icon-gmail.png') }}"
+                        alt="Gmail"><span>FinantusFinanceiros@gmail.com</span></div>
+            </div>
+            <nav class="menu-rodape">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversor de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+        <p class="direitos">© Todos os direitos reservados - 2025</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+ 
+<head>
+    <title>Finantus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="static/img/Logo Finantus.png" type="image/x-icon">
+    <link rel="stylesheet" href="static/css/estilo.css">
+</head>
+ 
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="{{url_for('index')}}"> <img width="150" src="static/img/Logo Finantus.png" class="logo" alt="Logo"> </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+            {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversão de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+ 
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="banner">
+            <img src="static/img/banner.jpg" alt="banner do site ">
+        </section>
+ 
+        <section class="bancos">
+            <p class="texto-bancos">
+                Controle financeiro conectado com os principais bancos</p>
+            <img src="static/img/bancos.png" alt="" class="img-banco">
+        </section>
+ 
+  <section class="funcionamento">
+    <h2>Nossos serviços</h2>
+    <div class="cartoes">
+        <div class="cartao">
+            <div class="imagem-servico">
+                <img src="static/img/conversor.png" alt="Ícone Conversor de Moedas">
+            </div>
+            <div class="conteudo-texto">
+                <h3>Conversor de Moedas</h3>
+                <p class="importante">Converta moedas com facilidade e precisão.</p>
+                <p>Em nosso site, você pode realizar conversões de forma prática e segura entre as principais moedas utilizadas no mercado: Real (BRL), Dólar Americano (USD) e Euro (EUR). A ferramenta utiliza taxas de câmbio atualizadas para garantir precisão nas operações, sendo ideal para análises financeiras.</p>
+            </div>
+        </div>
+ 
+        <div class="cartao">
+            <div class="imagem-servico">
+                <img src="static/img/registro.png" alt="Ícone Registro de Transações">
+            </div>
+            <div class="conteudo-texto">
+                <h3>Registro de Transações</h3>
+                <p class="importante">Registre suas Receitas e Despesas como quiser</p>
+                <p>Garanta o controle total das suas movimentações financeiras com nosso sistema de registro de transações. Cada operação é registrada de forma precisa e segura, com todos os dados relevantes: data, valor, tipo de transação, moeda envolvida e observações adicionais.</p>
+            </div>
+        </div>
+ 
+        <div class="cartao">
+            <div class="imagem-servico">
+                <img src="static/img/reserva.png" alt="Ícone Reserva de Emergência">
+            </div>
+            <div class="conteudo-texto">
+                <h3>Reserva de Emergencia</h3>
+                <p class="importante">Ter uma reserva de emergência é fundamental para garantir estabilidade e segurança financeira.</p>
+                <p>Seja uma demissão repentina, despesas médicas inesperadas ou emergências familiares, contar com um valor reservado evita o uso de crédito caro e protege seu patrimônio.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        <footer>
+            <div class="rodape">
+                <div class="contatos">
+                    <div><img src="static/img/icon-whatsapp.png" alt=""><span>(55) 18 12345-6789</span></div>
+                    <div><img src="static/img/instagram-icon.png" alt=""><span>@FinantusFinanceiros</span></div>
+                    <div><img src="static/img/icon-gmail.png" alt=""><span>FinantusFinanceiros@gmail.com</span></div>
+                </div>
+                <nav class="menu-rodape">
+                    <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                    <a href="{{url_for('conversor_moedas')}}">Conversor de Moedas</a>
+                    <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                    <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+                </nav>
+            </div>
+            <p class="direitos">© Todos os direitos reservados - 2025</p>
+        </footer>
+ 
+    </main>
+</body>
+</html>

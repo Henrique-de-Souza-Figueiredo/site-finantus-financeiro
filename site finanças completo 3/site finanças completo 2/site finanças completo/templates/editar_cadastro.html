@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Finantus</title>
+    <meta charset="UTF-8">
+    <title>Editar Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo Finantus.png') }}" type="image/x-icon">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <img width="120" src="{{ url_for('static', filename='img/Logo Finantus.png') }}" class="logo"
+                alt="Logo Finantus">
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversão de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+
+            </nav>
+        </div>
+    </header>
+
+    <div>
+
+        <a href="{{ url_for('index') }}">
+            <button class="botão" type="button"> Voltar</button>
+        </a>
+
+        {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+        <ul class="erro">
+            {% for msg in mensagens %}
+            <li>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <h1 class="titulo">Editar Cadastro</h1>
+    </div>
+
+
+
+
+
+    <section class="form-editar-container">
+        <form action="{{ url_for('editar_cadastro', cpf=cpf) }}" method="POST" class="form-editar">
+
+            <input type="hidden" name="cpf" value="{{ cpf }}">
+
+            <div class="form-row">
+                <div class="campo">
+                    <label for="Nome">Nome:</label>
+                    <input type="text" id="Nome" name="Nome" maxlength="50" placeholder="Digite um nome completo" value="{{ usuario['Nome'] }}" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="campo">
+                    <label for="CPF">CPF:</label>
+                    <input type="text" id="CPF" name="CPF" maxlength="18" placeholder="Digite seu CPF" value="{{ cpf }}" readonly>
+                </div>
+                <div class="campo">
+                    <label for="Telefone">Telefone:</label>
+                    <input type="tel" id="Telefone" name="Telefone" maxlength="15" placeholder="Informe o telefone" value="{{ usuario['Telefone'] }}" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="campo">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="Informe o email" value="{{ usuario['email'] }}" required>
+                </div>
+                <div class="campo">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" placeholder="senha forte" value="{{ usuario['senha'] }}" required>
+                </div>
+            </div>
+
+            <div class="form-row center">
+                <button class="botao-salvar" type="submit">Salvar</button>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+             <div class="rodape">
+            <div class="contatos">
+                <div><img src="{{ url_for('static', filename='img/icon-whatsapp.png') }}" alt="WhatsApp"><span>(55) 18 12345-6789</span></div>
+                <div><img src="{{ url_for('static', filename='img/instagram-icon.png') }}" alt="Instagram"><span>@FinantusFinanceiros</span></div>
+                <div><img src="{{ url_for('static', filename='img/icon-gmail.png') }}" alt="Gmail"><span>FinantusFinanceiros@gmail.com</span></div>
+            </div>
+                <nav class="menu-rodape">
+                    <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                    <a href="{{url_for('conversor_moedas')}}">Conversor de Moedas</a>
+                    <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                    <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+                </nav>
+            </div>
+            <p class="direitos">© Todos os direitos reservados - 2025</p>
+        </footer>
+</body>
+
+</html>

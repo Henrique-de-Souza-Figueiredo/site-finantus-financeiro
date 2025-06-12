@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <title>Conversor de moedas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo Finantus.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="{{url_for('index')}}"> <img width="150" src="static/img/Logo Finantus.png" class="logo" alt="Logo">
+            </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversão de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+
+            </nav>
+        </div>
+    </header>
+
+    <main class="container-main">
+        <a href="{{ url_for('index') }}">
+            <button class="botão" type="button"> Voltar</button>
+        </a>
+        <h1 class="titulo">Conversor de Moedas</h1>
+        <section class="centralização">
+            <form method="POST" action="{{ url_for('conversor_moedas') }}">
+                <label for="valor-input">Valor:</label>
+                <input type="number" min="0.01" id="valor-input" name="valor" step="0.01" placeholder="Digite o valor" required>
+                <label for="moeda_origem-select">De:</label>
+                <select id="moeda_origem-select" name="moeda_origem">
+                    <option value="BRL">Real (BRL)</option>
+                    <option value="USD">Dólar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                </select>
+                <label for="moeda_destino-select">Para:</label>
+                <select id="moeda_destino-select" name="moeda_destino">
+                    <option value="USD">Dólar (USD)</option>
+                    <option value="BRL">Real (BRL)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                </select>
+                <br>
+                {% if resultado %}
+                <p class="resultado"><strong>Resultado:</strong> {{ resultado }}</p>
+                {% endif %}
+
+                <button class="botão-final" type="submit">Converter</button>
+            </form>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="rodape">
+            <div class="contatos">
+                <div><img src="static/img/icon-whatsapp.png" alt=""><span>(55) 18 12345-6789</span></div>
+                <div><img src="static/img/instagram-icon.png" alt=""><span>@FinantusFinanceiros</span></div>
+                <div><img src="static/img/icon-gmail.png" alt=""><span>FinantusFinanceiros@gmail.com</span></div>
+            </div>
+            <nav class="menu-rodape">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversor de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+        <p class="direitos">© Todos os direitos reservados - 2025</p>
+    </footer>
+</body>
+
+</html>

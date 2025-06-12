@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <title>Resultado da Reserva de Emergência</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo Finantus.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <a href="{{url_for('index')}}"> <img width="150" src="static/img/Logo Finantus.png" class="logo" alt="Logo"> </a>
+            <nav class="menu">
+                <a href="{{url_for('index')}}">Como Funciona</a>
+            {% if session.get('usuario_nome') %}
+                <a href="{{url_for('conversor_moedas')}}">Conversão de Moedas</a>
+                <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                <span class="usuario-logado">Olá, {{ session['usuario_nome'] }}!</span>
+                <a href="{{ url_for('editar_cadastro', cpf=session['usuario_cpf']) }}">Editar</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <a href="{{ url_for('reserva_emergencia') }}">
+            <button class="botão" type="button"> Voltar</button>
+        </a>
+        <h1 class="titulo">Resultado da Reserva de Emergência</h1>
+
+        <section class="centralização">
+
+
+            <div class="cartoes-reserva">
+                <div class="cartao-reserva">
+                    <p class="preto"><strong>Despesa mensal estimada: <br> </strong> <span class="reservavalor"> R$ {{ despesa | round(2) }}</p> </span>
+                </div>
+                <div class="cartao-reserva">
+                    <p class="preto"><strong>Meses de cobertura desejados: <br> </strong> <span class="reservavalor"> {{ cobertura }} meses</p> </span>
+                </div>
+                <div class="cartao-reserva">
+                    <p class="preto"><strong>Prazo para atingir a meta: <br> </strong> <span class="reservavalor"> {{ prazometa }} meses</p> </span>
+                </div>
+                <div class="cartao-reserva">
+                    <p class="preto"><strong>Reserva total necessária: <br></strong> <span class="reservavalor"> R$ {{ reservatotal | round(2) }}</span>
+                    </p>
+                </div>
+                <div class="cartao-reserva">
+                    <p class="preto"><strong>Valor a ser guardado por mês: <br> </strong> <span class="reservavalor"> R$ {{ reservamensal | round(2) }}</span>
+                    </p>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            <a href="{{ url_for('reserva_emergencia') }}" class="botão-final
+        ">Refazer cálculo</a>
+        </section>
+
+
+    </main>
+
+    <footer>
+            <div class="rodape">
+                <div class="contatos">
+                    <div><img src="static/img/icon-whatsapp.png" alt=""><span>(55) 18 12345-6789</span></div>
+                    <div><img src="static/img/instagram-icon.png" alt=""><span>@FinantusFinanceiros</span></div>
+                    <div><img src="static/img/icon-gmail.png" alt=""><span>FinantusFinanceiros@gmail.com</span></div>
+                </div>
+                <nav class="menu-rodape">
+                    <a href="{{url_for('index')}}">Como Funciona</a>
+                {% if session.get('usuario_nome') %}
+                    <a href="{{url_for('conversor_moedas')}}">Conversor de Moedas</a>
+                    <a href="{{url_for('registro_transacoes')}}">Registro de Transações</a>
+                    <a href="{{url_for('reserva_emergencia')}}">Reserva de Emergencia</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro') }}">Cadastro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+                </nav>
+            </div>
+            <p class="direitos">© Todos os direitos reservados - 2025</p>
+        </footer>
+</body>
+
+</html>
