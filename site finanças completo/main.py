@@ -171,11 +171,6 @@ def nova():
         datagringa = datetime.strptime(data,"%Y-%m-%d")
         databrasil = datagringa.strftime("%d/%m/%Y")
 
-        if valor <= 0:
-            flash("O valor deve ser maior que zero.")
-            return redirect(url_for("nova"))
-
-
         transacoes.append({
             "cpf": cpf,
             "tipo": tipo,
@@ -220,11 +215,6 @@ def editar_transacao():
     nome = request.form["nome"]
     valor = float(request.form["valor"])
     data = request.form["data"]
-
-    if valor <= 0:
-            flash("O valor deve ser maior que zero.")
-            return redirect(url_for("editar_transacao"))
-
 
     datagringa = datetime.strptime(data, "%Y-%m-%d")
     data_formatada = datagringa.strftime("%d/%m/%Y")

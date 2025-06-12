@@ -35,7 +35,17 @@
     <a href="{{ url_for('registro_transacoes') }}">
         <button class="botão" type="button"> Voltar</button>
     </a>
+       {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+        <ul class="erro">
+            {% for msg in mensagens %}
+            <li>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
     <h1 class="titulo">Editar Transação</h1>
+
     <main>
         <section class="centralização">
             <form action="{{ url_for('atualizar_transacao') }}" method="POST">
@@ -52,7 +62,7 @@
                 </select>
 
                 <label for="valor">Valor:</label>
-                <input type="number" step="0.01" id="valor" name="valor" value="{{ transacao['valor'] }}" required>
+                <input type="number" step="0.01" min="0.01" id="valor" name="valor" value="{{ transacao['valor'] }}" required>
 
 
                 <input type="hidden" name="nome_original" value="{{ transacao['Nome'] }}">
